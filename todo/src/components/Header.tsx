@@ -16,7 +16,7 @@ function Header() {
               width="1em"
               height="1em"
               viewBox="0 0 24 24"
-              className="absolute right-0  md:text-2xl text-sm h-12 w-8 bg-blue-600 hover:bg-blue-800 transition-colors text-[#ececec] cursor-pointer px-2"
+              className="absolute right-0  md:text-2xl text-sm h-12 w-8  md:w-16 bg-blue-600 hover:bg-blue-800 transition-colors text-[#ececec] cursor-pointer px-2"
             >
               <path
                 fill="currentColor"

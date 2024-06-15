@@ -1,6 +1,6 @@
 import { createPortal } from "react-dom";
 
-function Modal({ onSetModal }) {
+function Modal({ onSetModal }: { onSetModal: (p: boolean) => void }) {
   return createPortal(
     <div
       className="
