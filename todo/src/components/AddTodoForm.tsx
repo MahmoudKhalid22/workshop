@@ -17,14 +17,10 @@ const AddTodoForm: React.FC<Props> = ({ onSetModal, onAddTodo, error }) => {
   });
   return (
     <form
-      className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 block min-h-full mx-auto w-[90%] md:w-1/2 z-50"
-      onSubmit={
-        error
-          ? (e: React.FormEvent) => e.preventDefault()
-          : (e: React.FormEvent) => {
-              onAddTodo(e, todo);
-            }
-      }
+      className="fixed top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 block mx-auto w-[90%] md:w-1/2 z-50"
+      onSubmit={(e: React.FormEvent) => {
+        onAddTodo(e, todo);
+      }}
     >
       <div className="w-full h-fit gap-4 bg-[#ececec] px-6 py-10 rounded-lg ">
         <div className="mb-6">
@@ -38,7 +34,7 @@ const AddTodoForm: React.FC<Props> = ({ onSetModal, onAddTodo, error }) => {
             placeholder="todo"
             className="w-full py-4 px-6 md:text-xl text-md rounded-lg"
             id="title"
-            value={todo.title}
+            defaultValue={todo.title}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setTodo({ ...todo, title: e.target.value })
             }
@@ -56,9 +52,9 @@ const AddTodoForm: React.FC<Props> = ({ onSetModal, onAddTodo, error }) => {
           >
             Add Todo
           </label>
-          <input
+          <textarea
             placeholder="todo"
-            className="w-full py-4 px-6 md:text-xl text-md rounded-lg "
+            className="w-full min-h-36 py-4 px-6 md:text-xl text-md rounded-lg "
             id="description"
             value={todo.description}
             onChange={(e) => setTodo({ ...todo, description: e.target.value })}

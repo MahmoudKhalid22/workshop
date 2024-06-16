@@ -31,8 +31,9 @@ function App() {
 
   const handleCompleted = (id: number) => {
     const todo: ITodo | undefined = todos.find((todo: ITodo) => todo.id === id);
-    console.log(todo);
+
     if (todo === undefined) return;
+
     todo.completed = !todo.completed;
     setTodos([...todos]);
   };
@@ -59,6 +60,7 @@ function App() {
         todos={todos}
         onUpdate={handleCompleted}
         onDelete={handleDeleteTodo}
+        onSetModal={setModal}
       />
       {todos.length > 0 && (
         <button

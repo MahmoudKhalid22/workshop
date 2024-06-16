@@ -8,14 +8,18 @@ const Todo = ({
   todos: ITodo[];
   onUpdate: (id: number) => void;
   onDelete: (id: number) => void;
+  onSetModal: (p: boolean) => void;
 }) => {
   // Create a new array in reverse order
-  const reversedTodos = todos.slice().sort((a, b) => {
-    if (a.completed === b.completed) {
-      return 0;
-    }
-    return a.completed ? 1 : -1;
-  });
+  const reversedTodos = todos
+    .slice()
+    .reverse()
+    .sort((a, b) => {
+      if (a.completed === b.completed) {
+        return 0;
+      }
+      return a.completed ? 1 : -1;
+    });
   return (
     <div>
       {reversedTodos.map((todo: ITodo, index: number) => (
@@ -33,12 +37,21 @@ const Todo = ({
             <p className="text-lg font-medium">{todo.description}</p>
           </div>
           <p>{todo.date}</p>
+          <p>
+            {todo.completed ? (
+              <span className="text-green-500 text-xl">completed</span>
+            ) : (
+              <span className="text-red-700 text-xl">uncompleted</span>
+            )}
+          </p>
           <div className="flex gap-4 ">
             <button
               className={`bg-[#15154b] hover:bg-[#333383] text-[#ececec] transition-colors`}
-              onClick={() => onUpdate(todo.id)}
+              onClick={() => {
+                onUpdate(todo.id);
+              }}
             >
-              {todo.completed ? "uncompleted" : " Completed"}
+              Completed
             </button>
             <button
               className="bg-red-500 hover:bg-red-600 transition-colors"
