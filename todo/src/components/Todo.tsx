@@ -51,7 +51,7 @@ const Todo = ({
                 onUpdate(todo.id);
               }}
             >
-              Completed
+              {todo.completed ? "uncompleted" : "completed"}
             </button>
             <button
               className="bg-red-500 hover:bg-red-600 transition-colors"
