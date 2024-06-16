@@ -17,7 +17,7 @@ function App() {
   const handleAddTodo = (e: React.FormEvent, todo: ITodo) => {
     e.preventDefault();
 
-    if (todo.title === undefined || todo.description === undefined) {
+    if (todo.title === "" || todo.description === "") {
       setError(true);
       return;
     }

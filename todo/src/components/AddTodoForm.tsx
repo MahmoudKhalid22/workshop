@@ -8,7 +8,13 @@ interface Props {
 }
 
 const AddTodoForm: React.FC<Props> = ({ onSetModal, onAddTodo, error }) => {
-  const [todo, setTodo] = useState<ITodo>({});
+  const [todo, setTodo] = useState<ITodo>({
+    id: 0,
+    title: "",
+    description: "",
+    date: "",
+    completed: false,
+  });
   return (
     <form
       className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 block mx-auto w-1/2 z-50"
