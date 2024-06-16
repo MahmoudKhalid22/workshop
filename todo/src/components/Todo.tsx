@@ -24,16 +24,16 @@ const Todo = ({
             todo.completed
               ? "bg-[#ececec] text-slate-800"
               : "bg-blue-600 text-[#ececec]"
-          }  my-4 flex items-center justify-between px-8 py-8 rounded-xl cursor-pointer transition-colors hover:bg-blue-800`}
+          }  my-4 flex flex-col md:flex-row gap-4 items-center justify-between px-8 py-8 rounded-xl cursor-pointer transition-colors hover:bg-blue-800`}
         >
-          <div className="flex flex-col justify-start items-start">
+          <div className="flex flex-col justify-start md:items-start">
             <h4 key={index} className="text-2xl font-semibold">
               {todo.title}
             </h4>
             <p className="text-lg font-medium">{todo.description}</p>
           </div>
           <p>{todo.date}</p>
-          <div className="flex gap-4">
+          <div className="flex gap-4 ">
             <button
               className={`bg-[#15154b] hover:bg-[#333383] text-[#ececec] transition-colors`}
               onClick={() => onUpdate(todo.id)}
