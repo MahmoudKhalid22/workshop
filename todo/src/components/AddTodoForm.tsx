@@ -78,11 +78,6 @@ const AddTodoForm: React.FC<Props> = ({ onSetModal, onAddTodo, error }) => {
             value={todo.date}
             onChange={(e) => setTodo({ ...todo, date: e.target.value })}
           />
-          {error && (
-            <p className="ml-6 text-red-600 text-lg text-left">
-              you must provide this field
-            </p>
-          )}
         </div>
         <button
           type="submit"
