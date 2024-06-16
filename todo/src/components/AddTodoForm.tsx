@@ -17,7 +17,7 @@ const AddTodoForm: React.FC<Props> = ({ onSetModal, onAddTodo, error }) => {
   });
   return (
     <form
-      className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 block mx-auto w-1/2 z-50"
+      className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 block min-h-full mx-auto w-[90%] md:w-1/2 z-50"
       onSubmit={
         error
           ? (e: React.FormEvent) => e.preventDefault()
