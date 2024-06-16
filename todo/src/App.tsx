@@ -3,16 +3,28 @@ import "./App.css";
 import Add from "./components/Add";
 import Header from "./components/Header";
 import Todo from "./components/Todo";
+import { ITodo } from "./types/type";
 
 function App() {
-  const [todo, setTodo] = useState<string>("");
-  const [todos, setTodos] = useState<string[]>([""]);
+  const [todos, setTodos] = useState<ITodo[]>([]);
+  const [error, setError] = useState<boolean>(false);
+  const [modal, setModal] = useState<boolean>(false);
 
-  const handleAddTodo = (e: React.FormEvent, todo: string) => {
+  const handleAddTodo = (e: React.FormEvent, todo: ITodo) => {
     e.preventDefault();
+    console.log(todo);
+
+    if (
+      todo.title === undefined ||
+      todo.description === undefined ||
+      todo.id === undefined
+    ) {
+      setError(true);
+      return;
+    }
+    setModal(false);
     setTodos(() => [...todos, todo]);
   };
-  console.log("test", todos, todo);
 
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
@@ -21,7 +33,12 @@ function App() {
   return (
     <>
       <Header />
-      <Add onAddTodo={handleAddTodo} />
+      <Add
+        onAddTodo={handleAddTodo}
+        error={error}
+        modal={modal}
+        onSetModal={setModal}
+      />
       <Todo todos={todos} />
     </>
   );
