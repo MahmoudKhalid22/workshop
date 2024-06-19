@@ -1,16 +1,11 @@
+import { useSelector } from "react-redux";
 import { ITodo } from "../types/type";
 
-const Todo = ({
-  todos,
-  onUpdate,
-  onDelete,
-}: {
-  todos: ITodo[];
-  onUpdate: (id: number) => void;
-  onDelete: (id: number) => void;
-  onSetModal: (p: boolean) => void;
-}) => {
+const Todo = () => {
   // Create a new array in reverse order
+
+  const todos = useSelector((state: { todos: ITodo[] }) => state.todos);
+
   const reversedTodos = todos
     .slice()
     .reverse()
@@ -48,14 +43,14 @@ const Todo = ({
             <button
               className={`bg-[#15154b] hover:bg-[#333383] text-[#ececec] transition-colors`}
               onClick={() => {
-                onUpdate(todo.id);
+                // onUpdate(todo.id);
               }}
             >
               {todo.completed ? "uncompleted" : "completed"}
             </button>
             <button
               className="bg-red-500 hover:bg-red-600 transition-colors"
-              onClick={() => onDelete(todo.id)}
+              // onClick={() => onDelete(todo.id)}
             >
               Delete
             </button>

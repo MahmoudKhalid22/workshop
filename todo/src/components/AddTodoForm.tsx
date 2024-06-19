@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import { ITodo } from "../types/type";
+import { ITodo, States } from "../types/type";
+import { useSelector } from "react-redux";
 
-interface Props {
-  onSetModal: (p: boolean) => void;
-  onAddTodo: (e: React.FormEvent, p: ITodo) => void;
-  error: boolean;
-}
+const AddTodoForm = () => {
+  const modal = useSelector((state: States) => state.modal);
 
-const AddTodoForm: React.FC<Props> = ({ onSetModal, onAddTodo, error }) => {
+  console.log(modal);
+
   const [todo, setTodo] = useState<ITodo>({
     id: 0,
     title: "",

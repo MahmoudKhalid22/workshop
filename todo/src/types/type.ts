@@ -5,3 +5,8 @@ export interface ITodo {
   completed: boolean;
   date: string;
 }
+
+export interface States {
+  todos: ITodo[];
+  modal: boolean;
+}
