@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
 import "./App.css";
 import Add from "./components/Add";
 import Header from "./components/Header";
 import Todo from "./components/Todo";
-import { ITodo, States } from "./types/type";
+import { ITodo } from "./types/type";
 import { useDispatch, useSelector } from "react-redux";
 import { clearAll } from "./redux/todoSlice";
 
