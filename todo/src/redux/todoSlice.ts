@@ -50,8 +50,8 @@ export const todoSlice = createSlice({
     },
     clearAll: (state) => {
       localStorage.clear();
-
-      return (state = []);
+      state = [];
+      return state;
     },
   },
 });
