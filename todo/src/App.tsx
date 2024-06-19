@@ -3,8 +3,9 @@ import "./App.css";
 import Add from "./components/Add";
 import Header from "./components/Header";
 import Todo from "./components/Todo";
-import { ITodo } from "./types/type";
-import { useSelector } from "react-redux";
+import { ITodo, States } from "./types/type";
+import { useDispatch, useSelector } from "react-redux";
+import { clearAll } from "./redux/todoSlice";
 
 function App() {
   // const [todos, setTodos] = useState<ITodo[]>(
@@ -52,6 +53,8 @@ function App() {
     (state: { todos: ITodo[] }) => state.todos
   );
 
+  const dispatch = useDispatch();
+
   return (
     <>
       <Header />
@@ -63,6 +66,7 @@ function App() {
           onClick={() => {
             const sure = confirm("Are you sure?");
             if (sure) {
+              dispatch(clearAll());
               localStorage.clear();
             }
           }}

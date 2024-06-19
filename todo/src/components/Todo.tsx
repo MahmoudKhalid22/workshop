@@ -1,10 +1,12 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ITodo } from "../types/type";
+import { deleteTodo, updateCompleted } from "../redux/todoSlice";
 
 const Todo = () => {
   // Create a new array in reverse order
 
   const todos = useSelector((state: { todos: ITodo[] }) => state.todos);
+  const dispatch = useDispatch();
 
   const reversedTodos = todos
     .slice()
@@ -21,9 +23,9 @@ const Todo = () => {
         <div
           className={`${
             todo.completed
-              ? "bg-[#ececec] text-slate-800"
-              : "bg-blue-600 text-[#ececec]"
-          }  my-4 flex flex-col md:flex-row gap-4 items-center justify-between px-8 py-8 rounded-xl cursor-pointer transition-colors hover:bg-blue-800`}
+              ? "bg-[#ececec] text-slate-800 hover:bg-green-200"
+              : "bg-blue-600 text-[#ececec] hover:bg-blue-800"
+          }  my-4 flex flex-col md:flex-row gap-4 items-center justify-between px-8 py-8 rounded-xl cursor-pointer transition-colors `}
         >
           <div className="flex flex-col justify-start md:items-start">
             <h4 key={index} className="text-2xl font-semibold">
@@ -43,14 +45,14 @@ const Todo = () => {
             <button
               className={`bg-[#15154b] hover:bg-[#333383] text-[#ececec] transition-colors`}
               onClick={() => {
-                // onUpdate(todo.id);
+                dispatch(updateCompleted(todo));
               }}
             >
               {todo.completed ? "uncompleted" : "completed"}
             </button>
             <button
               className="bg-red-500 hover:bg-red-600 transition-colors"
-              // onClick={() => onDelete(todo.id)}
+              onClick={() => dispatch(deleteTodo(todo))}
             >
               Delete
             </button>

@@ -1,6 +1,9 @@
 import { createPortal } from "react-dom";
+import { useDispatch } from "react-redux";
+import { displayModal } from "../redux/modalSlice";
 
-function Modal({ onSetModal }: { onSetModal: (p: boolean) => void }) {
+function Modal() {
+  const dispatch = useDispatch();
   return createPortal(
     <div
       className="
@@ -10,7 +13,7 @@ function Modal({ onSetModal }: { onSetModal: (p: boolean) => void }) {
     transition-all
     duration-500
     "
-      onClick={() => onSetModal(false)}
+      onClick={() => dispatch(displayModal(false))}
     ></div>,
     document.body
   );

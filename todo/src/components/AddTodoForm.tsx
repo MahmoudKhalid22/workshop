@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { ITodo, States } from "../types/type";
-import { useSelector } from "react-redux";
+import { ITodo } from "../types/type";
+import { useDispatch } from "react-redux";
+import { displayModal } from "../redux/modalSlice";
+import { addTodo } from "../redux/todoSlice";
 
 const AddTodoForm = () => {
-  const modal = useSelector((state: States) => state.modal);
-
-  console.log(modal);
+  const dispatch = useDispatch();
 
   const [todo, setTodo] = useState<ITodo>({
     id: 0,
@@ -14,11 +14,22 @@ const AddTodoForm = () => {
     date: "",
     completed: false,
   });
+  const [error, setError] = useState(false);
+
+  console.log(error);
+
   return (
     <form
       className="fixed top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 block mx-auto w-[90%] md:w-1/2 z-50"
       onSubmit={(e: React.FormEvent) => {
-        onAddTodo(e, todo);
+        // onAddTodo(e, todo);
+        e.preventDefault();
+        if (todo.title === "" || todo.description === "") {
+          setError(true);
+          return;
+        }
+        dispatch(addTodo(todo));
+        dispatch(displayModal(false));
       }}
     >
       <div className="w-full h-fit gap-4 bg-[#ececec] px-6 py-10 rounded-lg ">
@@ -34,9 +45,13 @@ const AddTodoForm = () => {
             className="w-full py-4 px-6 md:text-xl text-md rounded-lg"
             id="title"
             defaultValue={todo.title}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setTodo({ ...todo, title: e.target.value })
-            }
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              if (e.target.value === "" || e.target.value === undefined) {
+                setError(true);
+                return;
+              }
+              setTodo({ ...todo, title: e.target.value });
+            }}
           />
           {error && (
             <p className="ml-6 text-red-600 text-lg text-left">
@@ -56,7 +71,13 @@ const AddTodoForm = () => {
             className="w-full min-h-36 py-4 px-6 md:text-xl text-md rounded-lg "
             id="description"
             value={todo.description}
-            onChange={(e) => setTodo({ ...todo, description: e.target.value })}
+            onChange={(e) => {
+              if (e.target.value === "" || e.target.value === undefined) {
+                setError(true);
+                return;
+              }
+              setTodo({ ...todo, description: e.target.value });
+            }}
           />
           {error && (
             <p className="ml-6 text-red-600 text-lg text-left">
@@ -89,7 +110,7 @@ const AddTodoForm = () => {
         <button
           type="button"
           className="bg-red-500 hover:bg-red-700 transition-colors text-white w-full mt-6"
-          onClick={() => onSetModal(false)}
+          onClick={() => dispatch(displayModal(false))}
         >
           Cancel
         </button>

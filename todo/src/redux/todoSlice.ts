@@ -2,7 +2,19 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { ITodo } from "../types/type";
 
-const initialState: ITodo[] = [];
+const loadState = () => {
+  try {
+    const serializedState = localStorage.getItem("todos");
+    if (serializedState === null) {
+      return [];
+    }
+    return JSON.parse(serializedState);
+  } catch (err) {
+    return [];
+  }
+};
+
+const initialState: ITodo[] = loadState();
 
 export const todoSlice = createSlice({
   name: "todos",
@@ -18,6 +30,7 @@ export const todoSlice = createSlice({
         id: Date.now(),
       };
       state.push(newTodo);
+      localStorage.setItem("todos", JSON.stringify(state));
     },
     updateCompleted: (state, action: PayloadAction<ITodo>) => {
       const todo = state.findIndex(
@@ -25,12 +38,19 @@ export const todoSlice = createSlice({
       );
       if (todo !== -1) {
         state[todo].completed = !state[todo].completed;
+        localStorage.setItem("todos", JSON.stringify(state));
       }
     },
     deleteTodo: (state, action: PayloadAction<ITodo>) => {
-      return state.filter((todo: ITodo) => todo.id !== action.payload.id);
+      const newData = state.filter(
+        (todo: ITodo) => todo.id !== action.payload.id
+      );
+      localStorage.setItem("todos", JSON.stringify(newData));
+      return newData;
     },
     clearAll: (state) => {
+      localStorage.clear();
+
       return (state = []);
     },
   },
