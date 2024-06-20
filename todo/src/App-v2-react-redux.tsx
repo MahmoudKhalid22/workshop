@@ -1,15 +1,20 @@
-import { RecoilRoot, useRecoilState } from "recoil";
 import "./App.css";
 import Add from "./components/Add";
 import Header from "./components/Header";
 import Todo from "./components/Todo";
-import { todoState } from "./atom/atom";
+import { ITodo } from "./types/type";
+import { useDispatch, useSelector } from "react-redux";
+import { clearAll } from "./redux/todoSlice";
 
 function App() {
-  const [todos, setTodos] = useRecoilState(todoState);
-  console.log(todos);
+  const todos: ITodo[] = useSelector(
+    (state: { todos: ITodo[] }) => state.todos
+  );
+
+  const dispatch = useDispatch();
+
   return (
-    <RecoilRoot>
+    <>
       <Header />
       <Add />
       <Todo />
@@ -19,14 +24,15 @@ function App() {
           onClick={() => {
             const sure = confirm("Are you sure?");
             if (sure) {
-              setTodos([]);
+              dispatch(clearAll());
+              localStorage.clear();
             }
           }}
         >
           Clear All
         </button>
       )}
-    </RecoilRoot>
+    </>
   );
 }
 

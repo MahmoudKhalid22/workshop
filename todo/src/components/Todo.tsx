@@ -1,12 +1,22 @@
-import { useDispatch, useSelector } from "react-redux";
 import { ITodo } from "../types/type";
-import { deleteTodo, updateCompleted } from "../redux/todoSlice";
+import { useRecoilState } from "recoil";
+import { todoState } from "../atom/atom";
 
 const Todo = () => {
-  // Create a new array in reverse order
+  const [todos, setTodos] = useRecoilState(todoState);
 
-  const todos = useSelector((state: { todos: ITodo[] }) => state.todos);
-  const dispatch = useDispatch();
+  const updateTodo = (id: number) => {
+    const todo = todos.find((todo) => todo.id === id);
+    if (!todo) return;
+    todo.completed = !todo?.completed;
+    setTodos(todos);
+  };
+  console.log(todos);
+  const deleteTodo = (id: number) => {
+    const updatedTodos = todos.filter((todo) => todo.id !== id);
+    console.log(updatedTodos);
+    setTodos(updatedTodos);
+  };
 
   const reversedTodos = todos
     .slice()
@@ -45,14 +55,14 @@ const Todo = () => {
             <button
               className={`bg-[#15154b] hover:bg-[#333383] text-[#ececec] transition-colors`}
               onClick={() => {
-                dispatch(updateCompleted(todo));
+                updateTodo(todo.id);
               }}
             >
               {todo.completed ? "uncompleted" : "completed"}
             </button>
             <button
               className="bg-red-500 hover:bg-red-600 transition-colors"
-              onClick={() => dispatch(deleteTodo(todo))}
+              onClick={() => deleteTodo(todo.id)}
             >
               Delete
             </button>

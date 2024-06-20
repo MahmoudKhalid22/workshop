@@ -1,9 +1,10 @@
 import { createPortal } from "react-dom";
-import { useDispatch } from "react-redux";
-import { displayModal } from "../redux/modalSlice";
+import { useRecoilState } from "recoil";
+import { modalState } from "../atom/atom";
 
 function Modal() {
-  const dispatch = useDispatch();
+  const [modal, setModal] = useRecoilState(modalState);
+
   return createPortal(
     <div
       className="
@@ -13,7 +14,7 @@ function Modal() {
     transition-all
     duration-500
     "
-      onClick={() => dispatch(displayModal(false))}
+      onClick={() => setModal(false)}
     ></div>,
     document.body
   );
