@@ -2,10 +2,15 @@ import React, { useState } from "react";
 import { ITodo } from "../types/type";
 import { useRecoilState } from "recoil";
 import { modalState, todoState } from "../atom/atom";
+import { modalAtom, todoAtom } from "../mongezAtom/atom";
 
 const AddTodoForm = () => {
-  const [modal, setModal] = useRecoilState(modalState);
-  const [todos, setTodos] = useRecoilState(todoState);
+  // const [modal, setModal] = useRecoilState(modalState);
+  // const [todos, setTodos] = useRecoilState(todoState);
+
+  const [modal, setModal] = modalAtom.useState();
+  const [todos, setTodos] = todoAtom.useState();
+
   const [todo, setTodo] = useState<ITodo>({
     id: 0,
     title: "",

@@ -1,9 +1,10 @@
 import { createPortal } from "react-dom";
 import { useRecoilState } from "recoil";
 import { modalState } from "../atom/atom";
+import { modalAtom } from "../mongezAtom/atom";
 
 function Modal() {
-  const [modal, setModal] = useRecoilState(modalState);
+  const [modal, setModal] = modalAtom.useState();
 
   return createPortal(
     <div

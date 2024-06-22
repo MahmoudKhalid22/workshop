@@ -1,9 +1,12 @@
 import { ITodo } from "../types/type";
-import { useRecoilState } from "recoil";
-import { todoState } from "../atom/atom";
+// import { useRecoilState } from "recoil";
+// import { todoState } from "../atom/atom";
+import { todoAtom } from "../mongezAtom/atom";
 
 const Todo = () => {
-  const [todos, setTodos] = useRecoilState(todoState);
+  // const [todos, setTodos] = useRecoilState(todoState);
+
+  const [todos, setTodos] = todoAtom.useState();
 
   const updateTodo = (id: number) => {
     const todo = todos.find((todo) => todo.id === id);
