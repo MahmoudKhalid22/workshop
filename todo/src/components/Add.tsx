@@ -1,9 +1,3 @@
-// import Modal from "./Modal";
-// import AddTodoForm from "./AddTodoForm";
-// import { ITodo } from "../types/type";
-
-// import { useDispatch, useSelector } from "react-redux";
-// import { displayModal } from "../redux/modalSlice";
 import Modal from "./Modal";
 import AddTodoForm from "./AddTodoForm";
 import { useRecoilState } from "recoil";
