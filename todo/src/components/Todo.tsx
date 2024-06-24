@@ -1,12 +1,26 @@
-import { useDispatch, useSelector } from "react-redux";
 import { ITodo } from "../types/type";
-import { deleteTodo, updateCompleted } from "../redux/todoSlice";
+import { useRecoilState } from "recoil";
+import { todoState } from "../recoil/atom";
 
 const Todo = () => {
-  // Create a new array in reverse order
+  const [todos, setTodos] = useRecoilState(todoState);
 
-  const todos = useSelector((state: { todos: ITodo[] }) => state.todos);
-  const dispatch = useDispatch();
+  const updateTodo = (id: number) => {
+    const index = todos.findIndex((todo) => todo.id === id);
+    if (index === -1) return; // If todo not found, return
+    const updatedTodos = todos.map((todo) =>
+      todo.id === id ? { ...todo, completed: !todo.completed } : todo
+    );
+
+    setTodos(updatedTodos); // Update Recoil state
+    localStorage.setItem("todos", JSON.stringify(updatedTodos)); // Update localStorage
+  };
+
+  const deleteTodo = (id: number) => {
+    const updatedTodos = todos.filter((todo) => todo.id !== id);
+    setTodos([...updatedTodos]);
+    localStorage.setItem("todos", JSON.stringify(updatedTodos));
+  };
 
   const reversedTodos = todos
     .slice()
@@ -45,14 +59,14 @@ const Todo = () => {
             <button
               className={`bg-[#15154b] hover:bg-[#333383] text-[#ececec] transition-colors`}
               onClick={() => {
-                dispatch(updateCompleted(todo));
+                updateTodo(todo.id);
               }}
             >
               {todo.completed ? "uncompleted" : "completed"}
             </button>
             <button
               className="bg-red-500 hover:bg-red-600 transition-colors"
-              onClick={() => dispatch(deleteTodo(todo))}
+              onClick={() => deleteTodo(todo.id)}
             >
               Delete
             </button>

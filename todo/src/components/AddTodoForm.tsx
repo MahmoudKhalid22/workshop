@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { ITodo } from "../types/type";
-import { useDispatch } from "react-redux";
-import { displayModal } from "../redux/modalSlice";
-import { addTodo } from "../redux/todoSlice";
+import { useRecoilState } from "recoil";
+import { modalState, todoState } from "../recoil/atom";
 
 const AddTodoForm = () => {
-  const dispatch = useDispatch();
+  const [modal, setModal] = useRecoilState(modalState);
+  const [todos, setTodos] = useRecoilState(todoState);
 
   const [todo, setTodo] = useState<ITodo>({
     id: 0,
@@ -14,22 +14,28 @@ const AddTodoForm = () => {
     date: "",
     completed: false,
   });
+
   const [error, setError] = useState(false);
-
-  console.log(error);
-
+  const handleSubmit = (t: ITodo) => {
+    const newTodo = {
+      ...todo,
+      id: Date.now(),
+    };
+    const updatedTodos = [...todos, newTodo];
+    setTodos(updatedTodos);
+    localStorage.setItem("todos", JSON.stringify(updatedTodos));
+  };
   return (
     <form
       className="fixed top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 block mx-auto w-[90%] md:w-1/2 z-50"
       onSubmit={(e: React.FormEvent) => {
-        // onAddTodo(e, todo);
         e.preventDefault();
         if (todo.title === "" || todo.description === "") {
           setError(true);
           return;
         }
-        dispatch(addTodo(todo));
-        dispatch(displayModal(false));
+        handleSubmit(todo);
+        setModal(false);
       }}
     >
       <div className="w-full h-fit gap-4 bg-[#ececec] px-6 py-10 rounded-lg ">
@@ -110,7 +116,7 @@ const AddTodoForm = () => {
         <button
           type="button"
           className="bg-red-500 hover:bg-red-700 transition-colors text-white w-full mt-6"
-          onClick={() => dispatch(displayModal(false))}
+          onClick={() => setModal(false)}
         >
           Cancel
         </button>
