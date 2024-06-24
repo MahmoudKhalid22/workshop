@@ -6,7 +6,7 @@ import { modalState, todoState } from "../recoil/atom";
 const AddTodoForm = () => {
   const [modal, setModal] = useRecoilState(modalState);
   const [todos, setTodos] = useRecoilState(todoState);
-
+  console.log(modal);
   const [todo, setTodo] = useState<ITodo>({
     id: 0,
     title: "",
