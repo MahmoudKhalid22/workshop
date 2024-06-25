@@ -18,7 +18,7 @@ const AddTodoForm = () => {
   const [error, setError] = useState(false);
   const handleSubmit = (t: ITodo) => {
     const newTodo = {
-      ...todo,
+      ...t,
       id: Date.now(),
     };
     const updatedTodos = [...todos, newTodo];
