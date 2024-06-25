@@ -9,12 +9,15 @@ const Todo = () => {
   const [todos, setTodos] = todoAtom.useState();
 
   const updateTodo = (id: number) => {
-    const todo = todos.find((todo) => todo.id === id);
-    if (!todo) return;
-    todo.completed = !todo?.completed;
-    setTodos(todos);
+    const index = todos.findIndex((todo) => todo.id === id);
+    if (index === -1) return;
+
+    const updatedTodos: ITodo[] = todos.map((todo: ITodo) =>
+      todo.id === id ? { ...todo, completed: !todo.completed } : todo
+    );
+
+    setTodos(updatedTodos);
   };
-  console.log(todos);
   const deleteTodo = (id: number) => {
     const updatedTodos = todos.filter((todo) => todo.id !== id);
     console.log(updatedTodos);

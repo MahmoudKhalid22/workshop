@@ -1,13 +1,9 @@
 import React, { useState } from "react";
 import { ITodo } from "../types/type";
-import { useRecoilState } from "recoil";
-import { modalState, todoState } from "../atom/atom";
+
 import { modalAtom, todoAtom } from "../mongezAtom/atom";
 
 const AddTodoForm = () => {
-  // const [modal, setModal] = useRecoilState(modalState);
-  // const [todos, setTodos] = useRecoilState(todoState);
-
   const [modal, setModal] = modalAtom.useState();
   const [todos, setTodos] = todoAtom.useState();
 
@@ -20,6 +16,14 @@ const AddTodoForm = () => {
   });
   const [error, setError] = useState(false);
 
+  const handleAddTodo = () => {
+    const newTodo = {
+      ...todo,
+      id: Date.now(),
+    };
+    setTodos([...todos, newTodo]);
+  };
+
   return (
     <form
       className="fixed top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 block mx-auto w-[90%] md:w-1/2 z-50"
@@ -29,7 +33,7 @@ const AddTodoForm = () => {
           setError(true);
           return;
         }
-        setTodos([...todos, todo]);
+        handleAddTodo();
         setModal(false);
       }}
     >

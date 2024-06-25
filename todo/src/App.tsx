@@ -5,7 +5,7 @@ import Todo from "./components/Todo";
 import { todoAtom } from "./mongezAtom/atom";
 
 function App() {
-  const todos = todoAtom.useValue();
+  const [todos, setTodos] = todoAtom.useState();
 
   return (
     <>
@@ -18,7 +18,7 @@ function App() {
           onClick={() => {
             const sure = confirm("Are you sure?");
             if (sure) {
-              // setTodos([]);
+              setTodos([]);
             }
           }}
         >
