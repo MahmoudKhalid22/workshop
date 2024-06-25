@@ -7,7 +7,7 @@ import { displayModal } from "../redux/modalSlice";
 import Modal from "./Modal";
 import AddTodoForm from "./AddTodoForm";
 import { useRecoilState } from "recoil";
-import { modalState, todoState } from "../atom/atom";
+import { modalState, todoState } from "../recoil/atom";
 
 const Add = () => {
   const [modal, setModal] = useRecoilState(modalState);

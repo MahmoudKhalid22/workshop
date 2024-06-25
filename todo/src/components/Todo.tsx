@@ -1,21 +1,25 @@
 import { ITodo } from "../types/type";
 import { useRecoilState } from "recoil";
-import { todoState } from "../atom/atom";
+import { todoState } from "../recoil/atom";
 
 const Todo = () => {
   const [todos, setTodos] = useRecoilState(todoState);
 
   const updateTodo = (id: number) => {
-    const todo = todos.find((todo) => todo.id === id);
-    if (!todo) return;
-    todo.completed = !todo?.completed;
-    setTodos(todos);
+    const index = todos.findIndex((todo) => todo.id === id);
+    if (index === -1) return; // If todo not found, return
+    const updatedTodos = todos.map((todo) =>
+      todo.id === id ? { ...todo, completed: !todo.completed } : todo
+    );
+
+    setTodos(updatedTodos); // Update Recoil state
+    localStorage.setItem("todos", JSON.stringify(updatedTodos)); // Update localStorage
   };
-  console.log(todos);
+
   const deleteTodo = (id: number) => {
     const updatedTodos = todos.filter((todo) => todo.id !== id);
-    console.log(updatedTodos);
-    setTodos(updatedTodos);
+    setTodos([...updatedTodos]);
+    localStorage.setItem("todos", JSON.stringify(updatedTodos));
   };
 
   const reversedTodos = todos

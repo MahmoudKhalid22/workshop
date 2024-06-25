@@ -1,6 +1,6 @@
 import { createPortal } from "react-dom";
 import { useRecoilState } from "recoil";
-import { modalState } from "../atom/atom";
+import { modalState } from "../recoil/atom";
 
 function Modal() {
   const [modal, setModal] = useRecoilState(modalState);

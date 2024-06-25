@@ -1,15 +1,14 @@
-import { RecoilRoot, useRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import "./App.css";
 import Add from "./components/Add";
 import Header from "./components/Header";
 import Todo from "./components/Todo";
-import { todoState } from "./atom/atom";
+import { todoState } from "./recoil/atom";
 
 function App() {
   const [todos, setTodos] = useRecoilState(todoState);
-  console.log(todos);
   return (
-    <RecoilRoot>
+    <>
       <Header />
       <Add />
       <Todo />
@@ -19,6 +18,7 @@ function App() {
           onClick={() => {
             const sure = confirm("Are you sure?");
             if (sure) {
+              localStorage.clear();
               setTodos([]);
             }
           }}
@@ -26,7 +26,7 @@ function App() {
           Clear All
         </button>
       )}
-    </RecoilRoot>
+    </>
   );
 }
 
