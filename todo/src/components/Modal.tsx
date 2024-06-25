@@ -4,7 +4,7 @@ import { modalState } from "../recoil/atom";
 
 function Modal() {
   const [modal, setModal] = useRecoilState(modalState);
-
+  console.log(modal);
   return createPortal(
     <div
       className="
