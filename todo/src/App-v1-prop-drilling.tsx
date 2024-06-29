@@ -6,11 +6,15 @@ import Todo from "./components/Todo";
 import { ITodo } from "./types/type";
 
 function App() {
-  const [todos, setTodos] = useState<ITodo[]>(
-    JSON.parse(localStorage.getItem("todos") as string)
-      ? JSON.parse(localStorage.getItem("todos") as string)
-      : []
-  );
+  const [todos, setTodos] = useState<ITodo[]>([]);
+
+  useEffect(() => {
+    setTodos(
+      JSON.parse(localStorage.getItem("todos") as string)
+        ? JSON.parse(localStorage.getItem("todos") as string)
+        : []
+    );
+  }, []);
   // const [error, setError] = useState<boolean>(false);
   // const [modal, setModal] = useState<boolean>(false);
 

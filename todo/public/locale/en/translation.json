@@ -1,0 +1,16 @@
+{
+  "todo list": "todo list",
+  "clear all": "clear all",
+  "completed": "completed",
+  "uncompleted": "uncompleted",
+  "delete": "Delete",
+  "add": "Add",
+  "cancel": "Cancel",
+  "title": "Title",
+  "description": "Description",
+  "todo": "todo",
+  "error": "you must provide this field",
+  "sure": "Are you sure ?",
+  "deadline": "Set the Deadline",
+  "add todo": "Add Todo"
+}

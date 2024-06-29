@@ -2,10 +2,11 @@ import { ITodo } from "../types/type";
 // import { useRecoilState } from "recoil";
 // import { todoState } from "../atom/atom";
 import { todoAtom } from "../mongezAtom/atom";
+import { useTranslation } from "react-i18next";
 
 const Todo = () => {
   // const [todos, setTodos] = useRecoilState(todoState);
-
+  const { t } = useTranslation();
   const [todos, setTodos] = todoAtom.useState();
 
   const updateTodo = (id: number) => {
@@ -37,6 +38,7 @@ const Todo = () => {
     <div>
       {reversedTodos.map((todo: ITodo, index: number) => (
         <div
+          key={index}
           className={`${
             todo.completed
               ? "bg-[#ececec] text-slate-800 hover:bg-green-200"
@@ -52,9 +54,9 @@ const Todo = () => {
           <p>{todo.date}</p>
           <p>
             {todo.completed ? (
-              <span className="text-green-500 text-xl">completed</span>
+              <span className="text-green-500 text-xl">{t("completed")}</span>
             ) : (
-              <span className="text-red-700 text-xl">uncompleted</span>
+              <span className="text-red-700 text-xl">{t("uncompleted")}</span>
             )}
           </p>
           <div className="flex gap-4 ">
@@ -64,13 +66,13 @@ const Todo = () => {
                 updateTodo(todo.id);
               }}
             >
-              {todo.completed ? "uncompleted" : "completed"}
+              {todo.completed ? t("uncompleted") : t("completed")}
             </button>
             <button
               className="bg-red-500 hover:bg-red-600 transition-colors"
               onClick={() => deleteTodo(todo.id)}
             >
-              Delete
+              {t("delete")}
             </button>
           </div>
         </div>
